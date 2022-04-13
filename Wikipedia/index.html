@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css"/>
+		<link rel="icon" href="data:image/png;base64,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"/>
+		<title>Apple - Wikipedia</title>
+	</head>
+	<body>
+		<div id="container">
+			<div id="sidebar">
+				<a title="Visit the main page" href="https://en.wikipedia.org/wiki/Main_Page"><img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/892px-Wikipedia-logo-v2-en.svg.png" alt="logo"></a>
+				<p><a title="Visit the main page [alt-shift-z]" href="#"">Main page</a></p>
+				<p><a title="Guides to browsing Wikipedia" href="#"">Contents</a></p>
+				<p><a title="Articles related to current events" href="#"">Current events</a></p>
+				<p><a title="Visit a randomly selected article [alt-shift-x]" href="#"">Random article</a></p>
+				<p><a title="Learn about Wikipedia and how it works" href="#"">About Wikipedia</a></p>
+				<p><a title="How to contact Wikipedia" href="#"">Contact us</a></p>
+				<p><a title="Support us by donating to the Wikimedia Foundation" href="#"">Donate</a></p>
+				<br>
+				<p class="sidebar-heading">Contribute</p>
+				<p><a title="Guidance on how to use and edit Wikipedia" href="#"">Help</a></p>
+				<p><a title="Learn how to edit Wikipedia" href="#"">Learn to edit</a></p>
+				<p><a title="The hub for editors" href="#"">Community portal</a></p>
+				<p><a title="A list of recent changes to Wikipedia [alt-shift-r]" href="#"">Recent changes</a></p>
+				<p><a title="Add images or other media for use on Wikipedia" href="#"">Upload file</a></p>
+			</div>
+			<div id="main">
+				<div id="apple">
+					<h1>Apple</h1>
+					<p>From Wikipedia, the free encyclopedia</p>
+					<br>
+					<p class="disclaimer"><i>This article is about the fruit and tree. For the American technology company, see Apple Inc.</a> For other uses, see <a href="#">Apple (disambiguation)</a>. "Apple tree" redirects here. For other uses, see <a href="#">Apple tree (disambiguation)</a>.</i></p>
+					<div id="info" class="table">
+						<h3>Apple</h3>
+						<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Pink_lady_and_cross_section.jpg/330px-Pink_lady_and_cross_section.jpg" alt="apples">
+						<p class="small-text">'<a href="#">Cripps Pink</a>' apples</p>
+						<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/330px-Malus_domestica_a1.jpg" alt="flowers">
+						<p class="small-text">Flowers</p>
+						<h3><a href="#">Scientific classification</a></h3>
+						<table class="a">
+							<tr>
+								<td>Kingdom:</td>
+								<td><a href="#">Plantae</a></td>
+							</tr>
+							<tr>
+								<td><i>Clade:</i></td>
+								<td><a href="#">Tracheophytes</a></td>
+							</tr>
+							<tr>
+								<td><i>Clade:</i></td>
+								<td><a href="#">Angiosperms</a></td>
+							</tr>
+							<tr>
+								<td><i>Clade:</i></td>
+								<td><a href="#">Eudicots</a></td>
+							</tr>
+							<tr>
+								<td><i>Clade:</i></td>
+								<td><a href="#">Rosids</a></td>
+							</tr>
+							<tr>
+								<td>Order:</td>
+								<td><a href="#">Rosales</a></td>
+							</tr>
+							<tr>
+								<td>Family:</td>
+								<td><a href="#">Rosaceae</a></td>
+							</tr>
+							<tr>
+								<td>Genus:</td>
+								<td><a href="#"><i>Malus</i></a></td>
+							</tr>
+							<tr>
+								<td>Species:</td>
+								<td><b><i>M. domestica</i></b></td>
+							</tr>
+						</table>
+						<h3><a href="#">Binomial name</a></h3>
+						<p><b><i>Malus domestica</i></b></p>
+						<p class="small-text"><a href="#">Borkh.</a>, 1803</p>
+						<h3><a href="#">Synonyms</a></h3>
+						<ul id="synonyms-list">
+							<li><i>Malus communis</i> <span class="small-text">Desf.</span></li>
+							<li><i>Malus pumila</i> <span class="small-text">Mil.</span></li>
+							<li><i>M. frutescens</i> <span class="small-text">Medik.</span></li>
+							<li><i>M. paradisiaca</i> <span class="small-text">(L.) Medikus</span></li>
+							<li><i>M. sylvestris</i> <span class="small-text">Mil.</span></li>
+							<li><i>Pyrus malus</i> <span class="small-text">L.</span></li>
+							<li><i>Pyrus malus var. paradisiaca</i> <span class="small-text">L.</span></li>
+							<li><i>Pyrus dioica</i> <span class="small-text">Moench</span></li>
+						</ul>
+					</div>
+					<p>An <b>apple</b> is an edible fruit produced by an <b>apple tree (Malus domestica)</b>. Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus. The tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today. Apples have been grown for thousands of years in Asia and Europe and were brought to North America by European colonists. Apples have religious and mythological significance in many cultures, including Norse, Greek, and European Christian tradition.</p>
+					<br>
+					<p>Apples grown from seed tend to be very different from those of their parents, and the resultant fruit frequently lacks desired characteristics. Generally, apple cultivars are propagated by clonal grafting onto rootstocks. Apple trees grown without rootstocks tend to be larger and much slower to fruit after planting. Rootstocks are used to control the speed of growth and the size of the resulting tree, allowing for easier harvesting.</p>
+					<br>
+					<p>There are more than 7,500 known cultivars of apples. Different cultivars are bred for various tastes and uses, including cooking, eating raw, and cider production. Trees and fruit are prone to a number of fungal, bacterial, and pest problems, which can be controlled by a number of organic and non-organic means. In 2010, the fruit's genome was sequenced as part of research on disease control and selective breeding in apple production.</p>
+					<br>
+					<p>Worldwide production of apples in 2018 was 86 million tonnes, with China accounting for nearly half of the total.</p>
+					<div id="contents-table" class="table">
+						<p id="contents-table-heading"><b>Contents</b></p>
+						<ol>
+							<li><a href="#etymology">Etymology</a></li>
+							<li><a href="#description">Description</a>
+								<ol>
+									<li><a href="#wild-ancestors">Wild ancestors</a></li>
+									<li><a href="#genome">Genome</a></li>
+								</ol></li>
+							<li><a href="#history">History</a></li>
+						</ol>
+					</div>
+				</div>
+				<div id="etymology">
+					<h2>Etymology</h2>
+					<p>The word apple, formerly spelled æppel in Old English, is derived from the Proto-Germanic root *ap(a)laz, which could also mean fruit in general. This is ultimately derived from Proto-Indo-European *ab(e)l-, but the precise original meaning and the relationship between both words[clarification needed] is uncertain.</p>
+					<br>
+					<p>As late as the 17th century, the word also functioned as a generic term for all fruit other than berries but including nuts—such as the 14th century Middle English word appel of paradis, meaning a banana.[4] This use is analogous to the French language use of pomme.</p>
+				</div>
+				<div id="description">
+					<h2>Description</h2>
+					<div class="table">
+						<img class="content-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Malus_domestica_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-108.jpg/330px-Malus_domestica_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-108.jpg" alt="Apple Tree">
+						<p class="img-desc">Blossoms, fruits, and leaves of the apple tree (Malus domestica)</p>
+					</div>
+					<div class="table">
+						<img class="content-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Apple_Blossom_%40_Manali.jpg/330px-Apple_Blossom_%40_Manali.jpg" alt="Apple blossom">
+						<p class="img-desc">Apple blossom</p>
+					</div>
+					<p>The apple is a deciduous tree, generally standing 2 to 4.5 m (6 to 15 ft) tall in cultivation and up to 9 m (30 ft) in the wild. When cultivated, the size, shape and branch density are determined by rootstock selection and trimming method. The leaves are alternately arranged dark green-colored simple ovals with serrated margins and slightly downy undersides.[5]</p>
+					<br>
+					<p>Blossoms are produced in spring simultaneously with the budding of the leaves and are produced on spurs and some long shoots. The 3 to 4 cm (1 to 1+1⁄2 in) flowers are white with a pink tinge that gradually fades, five petaled, with an inflorescence consisting of a cyme with 4–6 flowers. The central flower of the inflorescence is called the "king bloom"; it opens first and can develop a larger fruit.[5][6]</p>
+					<br>
+					<p>The fruit is a pome that matures in late summer or autumn, and cultivars exist in a wide range of sizes. Commercial growers aim to produce an apple that is 7 to 8.5 cm (2+3⁄4 to 3+1⁄4 in) in diameter, due to market preference. Some consumers, especially those in Japan, prefer a larger apple, while apples below 5.5 cm (2+1⁄4 in) are generally used for making juice and have little fresh market value. The skin of ripe apples is generally red, yellow, green, pink, or russetted, though many bi- or tri-colored cultivars may be found.[7] The skin may also be wholly or partly russeted i.e. rough and brown. The skin is covered in a protective layer of epicuticular wax.[8] The exocarp (flesh) is generally pale yellowish-white,[7] though pink, yellow or green exocarps also occur.[9]</p>
+					<br>
+					<div id="wild-ancestors">
+						<h4>Wild ancestors</h4>
+						<p class="disclaimer"><i>Main article: Malus sieversii</i></p>	
+						<p>The original wild ancestor of Malus domestica was Malus sieversii, found growing wild in the mountains of Central Asia in southern Kazakhstan, Kyrgyzstan, Tajikistan, and northwestern China.[5][10] Cultivation of the species, most likely beginning on the forested flanks of the Tian Shan mountains, progressed over a long period of time and permitted secondary introgression of genes from other species into the open-pollinated seeds. Significant exchange with Malus sylvestris, the crabapple, resulted in current populations of apples being more related to crabapples than to the more morphologically similar progenitor Malus sieversii. In strains without recent admixture the contribution of the latter predominates.[11][12][13]</p>
+					<br>
+					</div>
+					<div id="genome">
+						<h4>Genome</h4>
+						<p>Apple is diploid (though triploid cultivars are not uncommon), has 17 chromosomes and an estimated genome size of approximately 650 Mb. Several whole genome sequences have been made available, the first one in 2010 was based on the diploid cultivar 'Golden Delicious'.[14] However, this first whole genome sequence turned out to contain several errors[15] in part owing to the high degree of heterozygosity in diploid apples which, in combination with an ancient genome duplication, complicated the assembly. Recently, double- and trihaploid individuals have been sequenced, yielding whole genome sequences of higher quality.[16][17] The first whole genome assembly was estimated to contain around 57,000 genes,[14] though the more recent genome sequences support more moderate estimates between 42,000 and 44,700 protein-coding genes.[16][17] Among other things, the availability of whole genome sequences has provided evidence that the wild ancestor of the cultivated apple most likely is Malus sieversii. Re-sequencing of multiple accessions has supported this, while also suggesting extensive introgression from Malus sylvestris following domestication.[18]</p>
+					</div>
+				</div>
+				<div id="history">
+					<h2>History</h2>
+					<div class="table">
+						<img class="content-image" src="https://upload.wikimedia.org/wikipedia/commons/9/92/95apple.jpeg" alt="Wild malus">
+						<p class="img-desc">Wild Malus sieversii apple in Kazakhstan</p>
+					</div>
+					<p>Malus sieversii is recognized as a major progenitor species to the cultivated apple, and is morphologically similar. Due to the genetic variability in Central Asia, this region is generally considered the center of origin for apples.[19] The apple is thought to have been domesticated 4000–10000 years ago in the Tian Shan mountains, and then to have travelled along the Silk Road to Europe, with hybridization and introgression of wild crabapples from Siberia (M. baccata), the Caucasus (M. orientalis), and Europe (M. sylvestris). Only the M. sieversii trees growing on the western side of the Tian Shan mountains contributed genetically to the domesticated apple, not the isolated population on the eastern side.[18]</p>
+					<br>
+					<p>Chinese soft apples, such as M. asiatica and M. prunifolia, have been cultivated as dessert apples for more than 2000 years in China. These are thought to be hybrids between M. baccata and M. sieversii in Kazakhstan.[18]</p>
+					<br>
+					<p>Among the traits selected for by human growers are size, fruit acidity, color, firmness, and soluble sugar. Unusually for domesticated fruits, the wild M. sieversii origin is only slightly smaller than the modern domesticated apple.[18]</p>
+					<br>
+					<p>At the Sammardenchia-Cueis site near Udine in Northeastern Italy, seeds from some form of apples have been found in material carbon dated to around 4000 BCE.[20] Genetic analysis has not yet been successfully used to determine whether such ancient apples were wild Malus sylvestris or Malus domesticus containing Malus sieversii ancestry.[21] It is generally also hard to distinguish in the archeological record between foraged wild apples and apple plantations.</p>
+					<br>
+					<p>There is indirect evidence of apple cultivation in the third millennium BCE in the Middle East. There was substantial apple production in the European classical antiquity, and grafting was certainly known then.[21] Grafting is an essential part of modern domesticated apple production, to be able to propagate the best cultivars; it is unclear when apple tree grafting was invented.[21]</p>
+					<br>
+					<p>Winter apples, picked in late autumn and stored just above freezing, have been an important food in Asia and Europe for millennia.[22] Of the many Old World plants that the Spanish introduced to Chiloé Archipelago in the 16th century, apple trees became particularly well adapted.[23] Apples were introduced to North America by colonists in the 17th century,[5] and the first apple orchard on the North American continent was planted in Boston by Reverend William Blaxton in 1625.[24] The only apples native to North America are crab apples, which were once called "common apples".[25] Apple cultivars brought as seed from Europe were spread along Native American trade routes, as well as being cultivated on colonial farms. An 1845 United States apples nursery catalogue sold 350 of the "best" cultivars, showing the proliferation of new North American cultivars by the early 19th century.[25] In the 20th century, irrigation projects in Eastern Washington began and allowed the development of the multibillion-dollar fruit industry, of which the apple is the leading product.[5]</p>
+					<br>
+					<p>Until the 20th century, farmers stored apples in frostproof cellars during the winter for their own use or for sale. Improved transportation of fresh apples by train and road replaced the necessity for storage.[26][27] Controlled atmosphere facilities are used to keep apples fresh year-round. Controlled atmosphere facilities use high humidity, low oxygen, and controlled carbon dioxide levels to maintain fruit freshness. They were first used in the United States in the 1960s.[28]</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

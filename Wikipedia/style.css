@@ -1,0 +1,164 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: linear-gradient(0deg, rgb(246, 246, 246) 85%, rgba(255, 255, 255));
+	/* background-color: rgb(246, 246, 246); */
+	font-size: 18px;
+	font-family: sans-serif;
+	line-height: 1.4;
+}
+
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-family: "Georgia";
+	font-weight: normal;
+	font-size: 2.2em;
+	border-bottom: 1px solid #a2a9b1;
+	margin-bottom: 15px;
+}
+
+h2 {
+	font-family: "Georgia";
+	font-weight: normal;
+	font-size: 1.8em;
+	border-bottom: 1px solid #a2a9b1;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+h3 {
+	background-color: #b4fab4;
+	font-size: 1.05em;
+	text-align: center;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+h4 {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+
+img {
+	width: 100%;
+}
+
+.small-text {
+	font-size: 0.85em;
+}
+
+.img-desc {
+	font-size: 0.85em;
+	text-align: left;
+}
+
+#container {
+	display: flex;
+}
+#sidebar {
+	display: flex;
+	flex: 0 0 auto;
+	flex-direction: column;
+	width: 210px;
+	border-right: 1px solid #afdaf9;
+	padding: 30px;
+	padding-top: 5px;
+	font-size: 0.85em;
+}
+
+#logo {
+	margin-bottom: 30px;
+	width: calc(100% + 20px);
+	margin-left: -10px;
+}
+
+.sidebar-heading {
+	background-image: linear-gradient(to right, rgba(200, 204, 209, 0) 0, #c8ccd1 33%, #c8ccd1 66%, rgba(200, 204, 209, 0) 100%);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: 100% 1px;
+	margin-bottom: 5px;
+}
+
+#main {
+	background-color: white;
+	width: 100%;
+	padding: 30px;
+}
+
+.disclaimer {
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+
+.table {
+	background-color: #f8f9fa;
+	border: 1px solid #a2a9b1;
+	padding: 7px;
+	display: inline-block;
+	float: right;
+	margin-bottom: 25px;
+	margin-left: 10px;
+	clear: both;
+	width: 300px;
+}
+
+.content-image {
+	border: 1px solid #c8ccd1;
+}
+
+#apple {
+	overflow: hidden;
+}
+
+#info {
+	text-align: center;
+	margin-left: 20px;
+}
+
+table.a td {
+	width: 50%;
+	text-align: left;
+}
+
+#synonyms-list {
+	text-align: left;
+}
+
+#contents-table {
+	margin-top: 20px;
+	float: none;
+}
+
+#contents-table-heading {
+	text-align: center;
+}
+/* Setting up the option to have a list inside a list item */
+ol {
+	list-style-type: none;
+	counter-reset: item;
+	padding-left: 0;
+}
+
+ol > li {
+	counter-increment: item;
+}
+
+ol > li:before {
+	content: counters(item, ".") " ";
+}
+
+li > ol {
+	padding-left: 40px;
+}
