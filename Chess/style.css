@@ -1,0 +1,43 @@
+* {
+	margin: 0;
+}
+
+body {
+	background: linear-gradient(to bottom, #eb77ff, rgb(116, 220, 255));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+#board {
+	background-color: black;
+	padding: 0;
+	border: 12px solid black;
+	border-radius: 2%;
+	width: 700px;
+	height: 700px;
+	border-spacing: 0px;
+	box-sizing: content-box;
+}
+
+td {
+	box-sizing: border-box;
+}
+td:hover {
+	outline: 2px solid black;
+}
+
+.black {
+	background-color: #ebebd0;
+}
+.black:hover {
+	background-color: #ebebd0de;
+}
+
+.white {
+	background-color: #779556;
+}
+.white:hover {
+	background-color: #759556d5;
+}
