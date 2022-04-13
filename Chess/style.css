@@ -1,5 +1,6 @@
 * {
 	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -8,23 +9,20 @@ body {
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
+	color: white;
+	font-family: sans-serif;
 }
 
 #board {
-	background-color: black;
-	padding: 0;
-	border: 12px solid black;
+	background-color: rgba(0, 0, 0, 0.6);
 	border-radius: 2%;
-	width: 700px;
-	height: 700px;
+	width: 750px;
+	height: 750px;
 	border-spacing: 0px;
-	box-sizing: content-box;
+	table-layout: fixed;
 }
 
-td {
-	box-sizing: border-box;
-}
-td:hover {
+.tile:hover {
 	outline: 2px solid black;
 }
 
@@ -40,4 +38,12 @@ td:hover {
 }
 .white:hover {
 	background-color: #759556d5;
+}
+
+.letter {
+	height: 22px;
+}
+
+.number {
+	width: 22px;
 }
