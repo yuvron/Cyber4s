@@ -1,57 +1,53 @@
-//Creates a table row element with the board tiles.
-//@param rowNumber - the number of the row currently created.
-//@return ROW - the new row element.
-function createContentRow(rowNumber) {
-	const ROW = document.createElement("tr");
-	for (let i = 0; i < 10; i++) {
-		let cell;
-		if (i == 0 || i == 9) {
-			cell = document.createElement("th");
-			cell.className = "number";
-			cell.innerText = rowNumber;
+const GAME_SIZE = 8;
+const BOARD_SIZE = GAME_SIZE + 2;
+
+//Creates a table element (the board) and appending it all the rows and cells of the table
+function createBoard() {
+	const body = document.getElementsByTagName("body")[0];
+	const board = document.createElement("table");
+	body.appendChild(board);
+	board.setAttribute("id", "board");
+	//loop to create 10 rows (8 for the game, 2 for the letters)
+	for (let i = BOARD_SIZE - 1; i >= 0; i--) {
+		const row = document.createElement("tr"); //Row number i
+		//Checking if the current row is a game row or a letters row
+		if (i == 0 || i == BOARD_SIZE - 1) {
+			for (let j = 0; j < BOARD_SIZE; j++) {
+				const cell = document.createElement("th");
+				row.appendChild(cell);
+				if (j == 0 || j == BOARD_SIZE - 1) {
+					cell.classList.add("letter");
+					cell.classList.add("number");
+				} else {
+					cell.className = "letter";
+					cell.innerText = String.fromCharCode(j + 64);
+				}
+			}
 		} else {
-			cell = document.createElement("td");
-			cell.classList.add("tile");
-			if (rowNumber % 2 == 0) {
-				if (i % 2 == 0) cell.classList.add("black");
-				else cell.classList.add("white");
-			} else {
-				if (i % 2 == 0) cell.classList.add("white");
-				else cell.classList.add("black");
+			//Handling the actual game rows
+			for (let j = 0; j < BOARD_SIZE; j++) {
+				let cell;
+				//Side cells hold numbers, they are not games cells
+				if (j == 0 || j == BOARD_SIZE - 1) {
+					cell = document.createElement("th");
+					cell.className = "number";
+					cell.innerText = i;
+				} else {
+					//Handling the actual game cells
+					cell = document.createElement("td");
+					cell.classList.add("tile");
+					if (i % 2 == 0) {
+						if (j % 2 == 0) cell.classList.add("black");
+						else cell.classList.add("white");
+					} else {
+						if (j % 2 == 0) cell.classList.add("white");
+						else cell.classList.add("black");
+					}
+				}
+				row.appendChild(cell);
 			}
 		}
-		ROW.appendChild(cell);
-	}
-	return ROW;
-}
-
-//Creates a table row element for the ends of the board.
-//@return ROW - the new row element.
-function createEndRow() {
-	const ROW = document.createElement("tr");
-	for (let i = 0; i < 10; i++) {
-		const cell = document.createElement("th");
-		ROW.appendChild(cell);
-		if (i == 0 || i == 9) {
-			cell.classList.add("letter");
-			cell.classList.add("number");
-		} else {
-			cell.className = "letter";
-			cell.innerText = String.fromCharCode(i + 64);
-		}
-	}
-	return ROW;
-}
-
-//Creates a table element (the board) and appending it all the rows of the table
-function createBoard() {
-	const BODY = document.getElementsByTagName("body")[0];
-	const BOARD = document.createElement("table");
-	BODY.appendChild(BOARD);
-	BOARD.setAttribute("id", "board");
-	for (let i = 9; i >= 0; i--) {
-		if (i == 0 || i == 9) BOARD.appendChild(createEndRow());
-		else BOARD.appendChild(createContentRow(i));
+		board.appendChild(row);
 	}
 }
 
