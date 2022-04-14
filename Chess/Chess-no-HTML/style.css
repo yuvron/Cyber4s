@@ -16,8 +16,8 @@ body {
 #board {
 	background-color: rgba(0, 0, 0, 0.6);
 	border-radius: 2%;
-	width: 750px;
-	height: 750px;
+	width: 700px;
+	height: 700px;
 	border-spacing: 0px;
 	table-layout: fixed;
 }
@@ -26,17 +26,17 @@ body {
 	outline: 2px solid black;
 }
 
-.black {
+.white {
 	background-color: #ebebd0;
 }
-.black:hover {
+.white:hover {
 	background-color: #ebebd0de;
 }
 
-.white {
+.black {
 	background-color: #779556;
 }
-.white:hover {
+.black:hover {
 	background-color: #759556d5;
 }
 
