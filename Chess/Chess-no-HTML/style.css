@@ -40,6 +40,12 @@ body {
 	background-color: #759556d5;
 }
 
+.letter,
+.number {
+	font-weight: bold;
+	text-align: center;
+}
+
 .letter {
 	height: 22px;
 }
