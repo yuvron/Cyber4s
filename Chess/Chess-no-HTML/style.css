@@ -20,10 +20,22 @@ body {
 	height: 700px;
 	border-spacing: 0px;
 	table-layout: fixed;
+	user-select: none;
 }
 
+.tile {
+	color: black;
+	font-size: 3.7rem;
+	text-align: center;
+	width: 82px;
+	height: 82px;
+	transition: font-size 0.3s;
+}
 .tile:hover {
 	outline: 2px solid black;
+	font-size: 3.3rem;
+	transition: font-size 0.3s;
+	cursor: pointer;
 }
 
 .white {
@@ -52,4 +64,13 @@ body {
 
 .number {
 	width: 22px;
+}
+
+.selected {
+	background-color: #f6f669;
+	border: 1px solid black;
+	box-sizing: border-box;
+}
+.selected:hover {
+	background-color: #f6f669;
 }
