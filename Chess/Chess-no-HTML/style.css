@@ -30,10 +30,11 @@ body {
 	width: 82px;
 	height: 82px;
 	transition: font-size 0.3s;
+	box-sizing: border-box;
 }
 .tile:hover {
-	outline: 2px solid black;
-	font-size: 3.3rem;
+	border: 2px solid black;
+	font-size: 3.2rem;
 	transition: font-size 0.3s;
 	cursor: pointer;
 }
@@ -69,8 +70,23 @@ body {
 .selected {
 	background-color: #f6f669;
 	border: 1px solid black;
-	box-sizing: border-box;
 }
 .selected:hover {
 	background-color: #f6f669;
+}
+
+.move {
+	position: relative;
+}
+.move::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 30%;
+	height: 30%;
+	border-radius: 50%;
+	background-color: rgba(255, 0, 200, 0.7);
+	border: 1px solid black;
+	transform: translate(-50%, -50%);
 }
