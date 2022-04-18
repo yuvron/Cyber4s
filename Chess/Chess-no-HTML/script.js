@@ -40,18 +40,31 @@ class Piece {
 
 	getMoves() {
 		let moves = [];
-		let multiplier = this.color == "WHITE" ? 1 : -1;
 		switch (this.type) {
 			case "PAWN":
-				moves.push([this.x, this.y + 1 * multiplier]);
-				if (this.isInStartingPosition) moves.push([this.x, this.y + 2 * multiplier]);
+				let multiplier = this.color == "WHITE" ? 1 : -1;
+				let newY = this.y + 1 * multiplier;
+				if (!BOARD[newY][this.x]) moves.push([this.x, newY]);
+				newY = this.y + 2 * multiplier;
+				if (this.isInStartingPosition && !BOARD[newY][this.x]) moves.push([this.x, newY]);
+				let newX = this.x + 1;
+				newY = this.y + 1 * multiplier;
+				if (BOARD[newY][newX] && BOARD[newY][newX].color != this.color) moves.push([newX, newY]);
+				newX = this.x - 1;
+				if (BOARD[newY][this.x - 1] && BOARD[newY][newX].color != this.color) moves.push([newX, newY]);
 				break;
 			case "ROOK":
 				moves = this.getStraights();
 				break;
 			case "KNIGHT":
-				moves = this.getStraights(true);
-				moves = moves.concat(this.getDiagonals(true));
+				moves.push([this.x + 2, this.y + 1]);
+				moves.push([this.x + 2, this.y - 1]);
+				moves.push([this.x - 2, this.y + 1]);
+				moves.push([this.x - 2, this.y - 1]);
+				moves.push([this.x + 1, this.y + 2]);
+				moves.push([this.x - 1, this.y + 2]);
+				moves.push([this.x + 1, this.y - 2]);
+				moves.push([this.x - 1, this.y - 2]);
 				break;
 			case "BISHOP":
 				moves = this.getDiagonals();
@@ -61,20 +74,14 @@ class Piece {
 				moves = moves.concat(this.getDiagonals());
 				break;
 			case "KING":
-				moves.push([this.x + 1, this.y + 1]);
-				moves.push([this.x + 1, this.y]);
-				moves.push([this.x + 1, this.y - 1]);
-				moves.push([this.x, this.y - 1]);
-				moves.push([this.x, this.y + 1]);
-				moves.push([this.x - 1, this.y + 1]);
-				moves.push([this.x - 1, this.y]);
-				moves.push([this.x - 1, this.y - 1]);
+				moves = this.getStraights(true);
+				moves = moves.concat(this.getDiagonals(true));
 				break;
 		}
 		return moves;
 	}
 
-	getStraights() {
+	getStraights(once = false) {
 		let straights = [];
 		let condition = (i, j) => {
 			if (!BOARD[j][i]) straights.push([i, j]);
