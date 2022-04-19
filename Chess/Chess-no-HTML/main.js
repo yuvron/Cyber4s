@@ -145,28 +145,13 @@ function cellClicked(e, x, y) {
 		let lastId = chosenCell.id.split("-");
 		let lastX = lastId[0];
 		let lastY = lastId[1];
-		game.movePiece(lastX, lastY, x, y);
-		updateBoard(e.currentTarget, chosenCell);
-		toggleBack();
-		chosenCell = undefined;
+		if (game.movePiece(lastX, lastY, x, y)) {
+			updateBoard(e.currentTarget, chosenCell);
+			toggleBack();
+			chosenCell = undefined;
+		}
 	}
 }
 
 const table = createBoard();
 const game = new Game(initializeBoard(table));
-// let runner = false;
-// while (runner) {
-// 	let running = true;
-// 	let whiteTurn = true;
-// 	while (running) {
-// 		while (whiteTurn) {}
-// 		//check valid move
-// 		//check check/checkmate
-// 		//check satelmate
-// 		//black turn
-// 		//check valid move
-// 		//check check/checkmate
-// 		//check satelmate
-// 	}
-// 	console.log("B");
-// }

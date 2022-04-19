@@ -98,8 +98,8 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 	border-radius: 5px;
+	margin-bottom: 5px;
 }
 
 .white-turn {
