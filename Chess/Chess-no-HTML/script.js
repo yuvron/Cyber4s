@@ -42,29 +42,13 @@ class Piece {
 		let moves = [];
 		switch (this.type) {
 			case "PAWN":
-				let multiplier = this.color == "WHITE" ? 1 : -1;
-				let newY = this.y + 1 * multiplier;
-				if (!BOARD[newY][this.x]) moves.push([this.x, newY]);
-				newY = this.y + 2 * multiplier;
-				if (this.isInStartingPosition && !BOARD[newY][this.x]) moves.push([this.x, newY]);
-				let newX = this.x + 1;
-				newY = this.y + 1 * multiplier;
-				if (BOARD[newY][newX] && BOARD[newY][newX].color != this.color) moves.push([newX, newY]);
-				newX = this.x - 1;
-				if (BOARD[newY][this.x - 1] && BOARD[newY][newX].color != this.color) moves.push([newX, newY]);
+				moves = this.getPawnMoves();
 				break;
 			case "ROOK":
 				moves = this.getStraights();
 				break;
 			case "KNIGHT":
-				moves.push([this.x + 2, this.y + 1]);
-				moves.push([this.x + 2, this.y - 1]);
-				moves.push([this.x - 2, this.y + 1]);
-				moves.push([this.x - 2, this.y - 1]);
-				moves.push([this.x + 1, this.y + 2]);
-				moves.push([this.x - 1, this.y + 2]);
-				moves.push([this.x + 1, this.y - 2]);
-				moves.push([this.x - 1, this.y - 2]);
+				moves = this.getKnightMoves();
 				break;
 			case "BISHOP":
 				moves = this.getDiagonals();
@@ -79,6 +63,39 @@ class Piece {
 				break;
 		}
 		return moves;
+	}
+
+	getPawnMoves() {
+		let pawnMoves = [];
+		let multiplier = this.color == "WHITE" ? 1 : -1;
+		let newY = this.y + 1 * multiplier;
+		if (!BOARD[newY][this.x]) pawnMoves.push([this.x, newY]);
+		newY = this.y + 2 * multiplier;
+		if (this.isInStartingPosition && !BOARD[newY][this.x]) pawnMoves.push([this.x, newY]);
+		newY = this.y + 1 * multiplier;
+		let newX = this.x + 1;
+		if (BOARD[newY][newX] && BOARD[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
+		newX = this.x - 1;
+		if (BOARD[newY][newX] && BOARD[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
+		return pawnMoves;
+	}
+
+	getKnightMoves() {
+		let knightMoves = [];
+		let condition = (i, j) => {
+			if (i >= 0 && i < 8 && j >= 0 && j < 8) {
+				if (!BOARD[j][i] || BOARD[j][i].color != this.color) knightMoves.push([i, j]);
+			}
+		};
+		condition(this.x + 2, this.y + 1);
+		condition(this.x + 2, this.y - 1);
+		condition(this.x - 2, this.y + 1);
+		condition(this.x - 2, this.y - 1);
+		condition(this.x + 1, this.y + 2);
+		condition(this.x + 1, this.y - 2);
+		condition(this.x - 1, this.y + 2);
+		condition(this.x - 1, this.y - 2);
+		return knightMoves;
 	}
 
 	getStraights(once = false) {
@@ -234,10 +251,8 @@ function cellClicked(e) {
 			let id = e.currentTarget.id.split("-");
 			let x = id[0];
 			let y = id[1];
-			console.log(x, y);
 			if (BOARD[y][x] != undefined) {
 				let moves = BOARD[y][x].getMoves();
-				console.log(moves);
 				if (moves) {
 					for (const move of moves) {
 						const el = document.getElementById(move[0] + "-" + move[1]);
