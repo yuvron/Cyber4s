@@ -15,7 +15,8 @@ body {
 }
 
 #board {
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 5px solid white;
 	border-radius: 2%;
 	width: 700px;
 	height: 700px;

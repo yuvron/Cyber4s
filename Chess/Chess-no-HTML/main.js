@@ -105,9 +105,11 @@ function updateBoard(newPos, lastPos) {
 	if (game.turn == "WHITE") {
 		turn.className = "white-turn";
 		turn.innerText = "White Turn";
+		table.style.borderColor = "white";
 	} else {
 		turn.className = "black-turn";
 		turn.innerText = "Black Turn";
+		table.style.borderColor = "black";
 	}
 }
 
