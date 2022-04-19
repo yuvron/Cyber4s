@@ -25,7 +25,7 @@ const BLACK_PIECES = [
 	'<i class="fa-solid fa-chess-knight"></i>',
 	'<i class="fa-solid fa-chess-rook"></i>',
 ];
-const BOARD = [];
+const board = [];
 let chosenCell = undefined;
 let availableMoves = [];
 
@@ -69,14 +69,14 @@ class Piece {
 		let pawnMoves = [];
 		let multiplier = this.color == "WHITE" ? 1 : -1;
 		let newY = this.y + 1 * multiplier;
-		if (!BOARD[newY][this.x]) pawnMoves.push([this.x, newY]);
+		if (!board[newY][this.x]) pawnMoves.push([this.x, newY]);
 		newY = this.y + 2 * multiplier;
-		if (this.isInStartingPosition && !BOARD[newY][this.x]) pawnMoves.push([this.x, newY]);
+		if (this.isInStartingPosition && !board[newY][this.x]) pawnMoves.push([this.x, newY]);
 		newY = this.y + 1 * multiplier;
 		let newX = this.x + 1;
-		if (BOARD[newY][newX] && BOARD[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
+		if (board[newY][newX] && board[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
 		newX = this.x - 1;
-		if (BOARD[newY][newX] && BOARD[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
+		if (board[newY][newX] && board[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
 		return pawnMoves;
 	}
 
@@ -84,7 +84,7 @@ class Piece {
 		let knightMoves = [];
 		let condition = (i, j) => {
 			if (i >= 0 && i < 8 && j >= 0 && j < 8) {
-				if (!BOARD[j][i] || BOARD[j][i].color != this.color) knightMoves.push([i, j]);
+				if (!board[j][i] || board[j][i].color != this.color) knightMoves.push([i, j]);
 			}
 		};
 		condition(this.x + 2, this.y + 1);
@@ -101,8 +101,8 @@ class Piece {
 	getStraights(once = false) {
 		let straights = [];
 		let condition = (i, j) => {
-			if (!BOARD[j][i]) straights.push([i, j]);
-			else if (BOARD[j][i].color != this.color) {
+			if (!board[j][i]) straights.push([i, j]);
+			else if (board[j][i].color != this.color) {
 				straights.push([i, j]);
 				return true;
 			} else return true;
@@ -117,8 +117,8 @@ class Piece {
 	getDiagonals(once = false) {
 		let diagonals = [];
 		let condition = (i, j) => {
-			if (!BOARD[j][i]) diagonals.push([i, j]);
-			else if (BOARD[j][i].color != this.color) {
+			if (!board[j][i]) diagonals.push([i, j]);
+			else if (board[j][i].color != this.color) {
 				diagonals.push([i, j]);
 				return true;
 			} else return true;
@@ -207,25 +207,24 @@ function initializeBoard(table) {
 	rows.shift(); //Remove the first row (letters)
 	rows.pop(); //Remove the last row (letters)
 	for (let i = rows.length - 1; i >= 0; i--) {
-		BOARD[i] = [];
+		board[i] = [];
 		cells = [...rows[i].cells];
 		cells.shift(); //Remove the first column (numbers)
 		cells.pop(); //Remove the last column (numbers)
 		for (const j in cells) {
-			BOARD[i][j] = undefined;
 			if (i == 0) {
 				cells[j].innerHTML = BLACK_PIECES[+j + 1];
-				BOARD[i][j] = new Piece(CHESS_TYPES[+j + 1], "WHITE", +j, i);
+				board[i][j] = new Piece(CHESS_TYPES[+j + 1], "WHITE", +j, i);
 			} else if (i == 1) {
 				cells[j].innerHTML = BLACK_PIECES[0];
-				BOARD[i][j] = new Piece("PAWN", "WHITE", +j, i);
+				board[i][j] = new Piece("PAWN", "WHITE", +j, i);
 			} else if (i == cells.length - 2) {
 				cells[j].innerHTML = WHITE_PIECES[0];
-				BOARD[i][j] = new Piece("PAWN", "BLACK", +j, i);
+				board[i][j] = new Piece("PAWN", "BLACK", +j, i);
 			} else if (i == cells.length - 1) {
 				cells[j].innerHTML = WHITE_PIECES[+j + 1];
-				BOARD[i][j] = new Piece(CHESS_TYPES[+j + 1], "BLACK", +j, i);
-			}
+				board[i][j] = new Piece(CHESS_TYPES[+j + 1], "BLACK", +j, i);
+			} else board[i][j] = undefined;
 		}
 	}
 }
@@ -251,8 +250,8 @@ function cellClicked(e) {
 			let id = e.currentTarget.id.split("-");
 			let x = id[0];
 			let y = id[1];
-			if (BOARD[y][x] != undefined) {
-				let moves = BOARD[y][x].getMoves();
+			if (board[y][x] != undefined) {
+				let moves = board[y][x].getMoves();
 				if (moves) {
 					for (const move of moves) {
 						const el = document.getElementById(move[0] + "-" + move[1]);
@@ -262,7 +261,6 @@ function cellClicked(e) {
 						}
 					}
 				}
-			} else {
 			}
 		}
 	} else {
@@ -272,10 +270,10 @@ function cellClicked(e) {
 		let id2 = chosenCell.id.split("-");
 		let x2 = id2[0];
 		let y2 = id2[1];
-		BOARD[y2][x2].move(+x, +y);
+		board[y2][x2].move(+x, +y);
 		updateBoard(e.currentTarget, chosenCell);
-		BOARD[y][x] = BOARD[y2][x2];
-		BOARD[y2][x2] = undefined;
+		board[y][x] = board[y2][x2];
+		board[y2][x2] = undefined;
 		chosenCell.classList.toggle("selected");
 		for (const cell of availableMoves) {
 			cell.classList.toggle("move");
@@ -287,4 +285,4 @@ function cellClicked(e) {
 
 const table = createBoard();
 initializeBoard(table);
-console.log(BOARD);
+console.log(board);
