@@ -6,6 +6,7 @@
 body {
 	background: linear-gradient(to bottom, #eb77ff, rgb(116, 220, 255));
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
@@ -86,7 +87,29 @@ body {
 	width: 30%;
 	height: 30%;
 	border-radius: 50%;
-	background-color: rgba(255, 0, 200, 0.6);
+	background-color: rgba(255, 0, 200, 0.7);
 	border: 1px solid black;
 	transform: translate(-50%, -50%);
+}
+
+#turn {
+	width: 150px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: 5px;
+}
+
+.white-turn {
+	background-color: white;
+	color: black;
+	border: 2px solid black;
+}
+
+.black-turn {
+	background-color: black;
+	color: white;
+	border: 2px solid white;
 }

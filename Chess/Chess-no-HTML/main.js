@@ -101,6 +101,14 @@ function initializeBoard(table) {
 function updateBoard(newPos, lastPos) {
 	newPos.innerHTML = lastPos.innerHTML;
 	lastPos.innerHTML = "";
+	const turn = document.getElementById("turn");
+	if (game.turn == "WHITE") {
+		turn.className = "white-turn";
+		turn.innerText = "White Turn";
+	} else {
+		turn.className = "black-turn";
+		turn.innerText = "Black Turn";
+	}
 }
 
 function cellClicked(e, x, y) {
