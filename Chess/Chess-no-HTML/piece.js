@@ -8,30 +8,22 @@ class Piece {
 	}
 
 	getMoves(board) {
-		let moves = [];
 		switch (this.type) {
 			case "PAWN":
-				moves = this.getPawnMoves(board);
-				break;
+				return this.getPawnMoves(board);
 			case "ROOK":
-				moves = this.getStraights(board);
-				break;
+				return this.getStraights(board);
 			case "KNIGHT":
-				moves = this.getKnightMoves(board);
-				break;
+				return this.getKnightMoves(board);
 			case "BISHOP":
-				moves = this.getDiagonals(board);
-				break;
+				return this.getDiagonals(board);
 			case "QUEEN":
-				moves = this.getStraights(board);
-				moves = moves.concat(this.getDiagonals(board));
-				break;
+				return this.getStraights(board).concat(this.getDiagonals(board));
 			case "KING":
-				moves = this.getStraights(board, true);
-				moves = moves.concat(this.getDiagonals(board, true));
-				break;
+				return this.getStraights(board, true).concat(this.getDiagonals(board, true));
+			default:
+				return [];
 		}
-		return moves;
 	}
 
 	getPawnMoves(board) {
@@ -56,27 +48,20 @@ class Piece {
 				if (!board[y][x] || board[y][x].color != this.color) knightMoves.push([x, y]);
 			}
 		};
-		for (let i = -2; i <= 2; i++) {
-			for (let j = -2; j <= 2; j++) {
-				if (Math.abs(i) != Math.abs(j) && i != 0 && j != 0) {
-					condition(this.x + i, this.y + j);
-				}
-			}
-		}
-		// condition(this.x + 2, this.y + 1);
-		// condition(this.x + 2, this.y - 1);
-		// condition(this.x - 2, this.y + 1);
-		// condition(this.x - 2, this.y - 1);
-		// condition(this.x + 1, this.y + 2);
-		// condition(this.x + 1, this.y - 2);
-		// condition(this.x - 1, this.y + 2);
-		// condition(this.x - 1, this.y - 2);
+		condition(this.x + 2, this.y + 1);
+		condition(this.x + 2, this.y - 1);
+		condition(this.x - 2, this.y + 1);
+		condition(this.x - 2, this.y - 1);
+		condition(this.x + 1, this.y + 2);
+		condition(this.x + 1, this.y - 2);
+		condition(this.x - 1, this.y + 2);
+		condition(this.x - 1, this.y - 2);
 		return knightMoves;
 	}
 
 	getStraights(board, once = false) {
 		let straights = [];
-		let condition = (i, j) => {
+		const condition = (i, j) => {
 			if (!board[j][i]) straights.push([i, j]);
 			else if (board[j][i].color != this.color) {
 				straights.push([i, j]);
@@ -130,8 +115,8 @@ class Piece {
 		return diagonals;
 	}
 
-	move(x, y) {
-		if (this.isInStartingPosition) this.isInStartingPosition = false;
+	move(x, y, isFinal = true) {
+		if (this.isInStartingPosition && isFinal) this.isInStartingPosition = false;
 		this.x = x;
 		this.y = y;
 		//If a pawn reaches the end it turns to a better piece

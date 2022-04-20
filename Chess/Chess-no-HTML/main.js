@@ -25,7 +25,16 @@ const BLACK_PIECES = [
 	'<i class="fa-solid fa-chess-knight"></i>',
 	'<i class="fa-solid fa-chess-rook"></i>',
 ];
-// const BOARD = [];
+const upgradeWindow = document.getElementById("upgrade-container");
+const upgradeOptions = [...upgradeWindow.getElementsByTagName("i")];
+upgradeOptions.forEach((el) => {
+	el.addEventListener("click", () => {
+		// game.upgradePiece(el.attributes.name);
+		console.log(el.getAttribute("name"));
+		el.style.transition = "0s";
+		upgradeWindow.style.visibility = "hidden";
+	});
+});
 let chosenCell = undefined;
 let availableMoves = [];
 
@@ -55,13 +64,8 @@ function createBoard() {
 					cell.classList.add("tile");
 					cell.id = j - 1 + "-" + (i - 1);
 					cell.addEventListener("click", (event) => cellClicked(event, j - 1, i - 1));
-					if (i % 2 == 0) {
-						if (j % 2 == 0) cell.classList.add("black");
-						else cell.classList.add("white");
-					} else {
-						if (j % 2 == 0) cell.classList.add("white");
-						else cell.classList.add("black");
-					}
+					if ((i + j) % 2 == 0) cell.classList.add("black");
+					else cell.classList.add("white");
 				}
 			}
 		}
@@ -137,7 +141,7 @@ function cellClicked(e, x, y) {
 						if (el) {
 							el.classList.toggle("move");
 							availableMoves.push(el);
-						}
+						} else console.log("NO ELEMENT");
 					}
 				}
 			} else chosenCell = undefined;

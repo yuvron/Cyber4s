@@ -11,8 +11,8 @@ class Game {
 			this.whitePieces = this.whitePieces.concat(i.filter((el) => el && el.color == "WHITE"));
 			this.blackPieces = this.blackPieces.concat(i.filter((el) => el && el.color == "BLACK"));
 		}
-		this.whiteKing = this.whitePieces.filter((el) => el.type == "KING")[0];
-		this.blackKing = this.blackPieces.filter((el) => el.type == "KING")[0];
+		this.whiteKing = this.whitePieces.find((el) => el.type == "KING");
+		this.blackKing = this.blackPieces.find((el) => el.type == "KING");
 		this.turn = "WHITE";
 	}
 
@@ -25,20 +25,22 @@ class Game {
 		const temp = this.board[newY][newX];
 		this.board[newY][newX] = movingPiece;
 		this.board[oldY][oldX] = undefined;
-		if (this.isCheck(movingPiece.color)) {
+		if (movingPiece.type == "KING") movingPiece.move(newX, newY);
+		if (temp) this.killPiece(temp);
+		if (this.isCheck(this.turn.color)) {
 			this.board[oldY][oldX] = movingPiece;
 			this.board[newY][newX] = temp;
+			if (temp) this.revivePiece(temp);
+			if (movingPiece.type == "KING") movingPiece.move(oldX, oldY);
 			alert("Since the point of the game is killing the enemy king I'm not going to let you do that to yourself");
 			return false;
 		} else {
 			this.board[newY][newX].move(newX, newY);
 			this.turn = this.turn == "WHITE" ? "BLACK" : "WHITE";
-			if (temp) {
-				if (this.turn == "BLACK") this.blackPieces.splice(this.blackPieces.indexOf(temp), 1);
-				else this.whitePieces.splice(this.whitePieces.indexOf(temp), 1);
-				console.log(
-					`${movingPiece.color.toLowerCase()} ${movingPiece.type.toLowerCase()} captured ${this.turn.toLowerCase()} ${temp.type.toLowerCase()}`
-				);
+			if (temp) console.log(`${movingPiece.color} ${movingPiece.type} captured ${temp.color} ${temp.type}`);
+			if (this.isCheck(this.turn.color)) {
+				if (this.isCheckMate(this.turn.color)) alert("I think you just lost");
+				else alert("Your king is threatend!!!");
 			}
 			return true;
 		}
@@ -62,28 +64,44 @@ class Game {
 	}
 
 	isCheckMate(color) {
+		const condition = (piece, move) => {
+			const x = piece.x;
+			const y = piece.y;
+			const temp = this.board[move[1]][move[0]];
+			piece.move(move[0], move[1]);
+			this.board[move[1]][move[0]] = piece;
+			this.board[y][x] = undefined;
+			if (temp) this.killPiece(temp);
+			const isCheck = this.isCheck(color);
+			piece.move(x, y);
+			this.board[move[1]][move[0]] = temp;
+			this.board[y][x] = piece;
+			if (temp) this.revivePiece(temp);
+			return isCheck;
+		};
 		if (color == "WHITE") {
 			for (const whitePiece of this.whitePieces) {
-				for (const move of whitePiece.getMoves()) {
-					const x = whitePiece.x;
-					const y = whitePiece.y;
-					whitePiece.move(move.x, move.y);
-					const isCheck = this.isCheck(color);
-					whitePiece.move(x, y);
-					if (!isCheck) return false;
+				for (const move of whitePiece.getMoves(this.board)) {
+					if (!condition(whitePiece, move)) return false;
 				}
 			}
 		} else {
 			for (const blackPiece of this.blackPieces) {
-				for (const move of blackPiece.getMoves()) {
-					const x = blackPiece.x;
-					const y = blackPiece.y;
-					blackPiece.move(move.x, move.y);
-					const isCheck = this.isCheck(color);
-					blackPiece.move(x, y);
-					if (!isCheck) return false;
+				for (const move of blackPiece.getMoves(this.board)) {
+					if (!condition(blackPiece, move)) return false;
 				}
 			}
 		}
+		return true;
+	}
+
+	killPiece(piece) {
+		if (piece.color == "WHITE") this.whitePieces.splice(this.whitePieces.indexOf(piece), 1);
+		else this.blackPieces.splice(this.blackPieces.indexOf(piece), 1);
+	}
+
+	revivePiece(piece) {
+		if (piece.color == "WHITE") this.whitePieces.push(piece);
+		else this.blackPieces.push(piece);
 	}
 }
