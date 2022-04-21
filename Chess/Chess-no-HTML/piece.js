@@ -30,11 +30,13 @@ class Piece {
 		let pawnMoves = [];
 		let multiplier = this.color == "WHITE" ? 1 : -1;
 		let newY = this.y + 1 * multiplier;
-		if (newY <= 0 && newY < GAME_SIZE) {
+		//Regular moves
+		if (!board[newY][this.x]) {
+			pawnMoves.push([this.x, newY]);
+			newY = this.y + 2 * multiplier;
+			if (this.isInStartingPosition && !board[newY][this.x]) pawnMoves.push([this.x, newY]);
 		}
-		if (!board[newY][this.x]) pawnMoves.push([this.x, newY]);
-		newY = this.y + 2 * multiplier;
-		if (this.isInStartingPosition && !board[newY][this.x]) pawnMoves.push([this.x, newY]);
+		//Capturing moves
 		newY = this.y + 1 * multiplier;
 		let newX = this.x + 1;
 		if (board[newY][newX] && board[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
