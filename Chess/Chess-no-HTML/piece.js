@@ -30,6 +30,8 @@ class Piece {
 		let pawnMoves = [];
 		let multiplier = this.color == "WHITE" ? 1 : -1;
 		let newY = this.y + 1 * multiplier;
+		if (newY <= 0 && newY < GAME_SIZE) {
+		}
 		if (!board[newY][this.x]) pawnMoves.push([this.x, newY]);
 		newY = this.y + 2 * multiplier;
 		if (this.isInStartingPosition && !board[newY][this.x]) pawnMoves.push([this.x, newY]);
@@ -120,11 +122,6 @@ class Piece {
 		this.x = x;
 		this.y = y;
 		//If a pawn reaches the end it turns to a better piece
-		if (this.type == "PAWN" && (this.y == GAME_SIZE - 1 || this.y == 0)) {
-			if (confirm("Please")) {
-				this.type = "QUEEN";
-				console.log("AA");
-			}
-		}
+		if (this.type == "PAWN" && (this.y == GAME_SIZE - 1 || this.y == 0)) return true;
 	}
 }

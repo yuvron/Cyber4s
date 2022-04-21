@@ -1,9 +1,9 @@
 const GAME_SIZE = 8;
 const BOARD_SIZE = GAME_SIZE + 2;
 const CHESS_TYPES = ["PAWN", "ROOK", "KNIGHT", "BISHOP", "QUEEN", "KING", "BISHOP", "KNIGHT", "ROOK"];
-const WHITE_PIECES1 = ["♙", "♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
-const BLACK_PIECES1 = ["♟", "♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
-const WHITE_PIECES = [
+const WHITE_PIECES = ["♙", "♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
+const BLACK_PIECES = ["♟", "♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
+const WHITE_PIECES1 = [
 	'<i class="fa-regular fa-chess-pawn"></i>',
 	'<i class="fa-regular fa-chess-rook"></i>',
 	'<i class="fa-regular fa-chess-knight"></i>',
@@ -14,7 +14,7 @@ const WHITE_PIECES = [
 	'<i class="fa-regular fa-chess-knight"></i>',
 	'<i class="fa-regular fa-chess-rook"></i>',
 ];
-const BLACK_PIECES = [
+const BLACK_PIECES1 = [
 	'<i class="fa-solid fa-chess-pawn"></i>',
 	'<i class="fa-solid fa-chess-rook"></i>',
 	'<i class="fa-solid fa-chess-knight"></i>',
@@ -25,18 +25,25 @@ const BLACK_PIECES = [
 	'<i class="fa-solid fa-chess-knight"></i>',
 	'<i class="fa-solid fa-chess-rook"></i>',
 ];
+let chosenCell = undefined;
+let desiredCell = undefined;
+let availableMoves = [];
+
 const upgradeWindow = document.getElementById("upgrade-container");
 const upgradeOptions = [...upgradeWindow.getElementsByTagName("i")];
 upgradeOptions.forEach((el) => {
 	el.addEventListener("click", () => {
-		// game.upgradePiece(el.attributes.name);
-		console.log(el.getAttribute("name"));
+		const newType = el.getAttribute("name");
+		if (game.turn == "WHITE") desiredCell.innerHTML = WHITE_PIECES[CHESS_TYPES.indexOf(newType)];
+		else desiredCell.innerHTML = BLACK_PIECES[CHESS_TYPES.indexOf(newType)];
+		const cellId = desiredCell.id.split("-");
+		const piece = game.board[cellId[1]][cellId[0]];
+		game.upgradePiece(piece, newType);
 		el.style.transition = "0s";
 		upgradeWindow.style.visibility = "hidden";
+		game.switchTurns();
 	});
 });
-let chosenCell = undefined;
-let availableMoves = [];
 
 //Creates a table element (the board) and appending it all the rows and cells of the table
 function createBoard() {
@@ -148,6 +155,7 @@ function cellClicked(e, x, y) {
 		}
 		//Handling moves clicks
 	} else {
+		desiredCell = e.currentTarget;
 		let lastId = chosenCell.id.split("-");
 		let lastX = lastId[0];
 		let lastY = lastId[1];
