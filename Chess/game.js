@@ -112,6 +112,7 @@ class Game {
 	}
 
 	upgradePiece(piece, upgradeTo) {
+		addNotification(`${piece.color} PAWN upgraded to ${upgradeTo}`);
 		piece.type = upgradeTo;
 	}
 }
