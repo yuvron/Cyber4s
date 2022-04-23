@@ -1,14 +1,15 @@
-# Cyber4s-Bootcamp
-Bootcamp projects and exercises
+# Cyber4s
+
+Cyber4s Bootcamp projects and exercises
 
 ### Amazon
 
-Launch: https://yuvron.github.io/Cyber4s-Bootcamp/Amazon/
+Launch: https://yuvron.github.io/Cyber4s/Amazon/
 
 ### Wikipedia
 
-Launch: https://yuvron.github.io/Cyber4s-Bootcamp/Wikipedia/
+Launch: https://yuvron.github.io/Cyber4s/Wikipedia/
 
 ### Chess
 
-Launch: https://yuvron.github.io/Cyber4s-Bootcamp/Chess/
+Launch: https://yuvron.github.io/Cyber4s/Chess/
