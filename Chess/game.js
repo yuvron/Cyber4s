@@ -14,6 +14,7 @@ class Game {
 		this.whiteKing = this.whitePieces.find((el) => el.type == "KING");
 		this.blackKing = this.blackPieces.find((el) => el.type == "KING");
 		this.turn = "WHITE";
+		this.isRunning = true;
 	}
 
 	getPiece(x, y) {
@@ -48,6 +49,7 @@ class Game {
 			if (this.isCheckMate(this.turn)) {
 				const winningColor = this.turn == "WHITE" ? "black" : "white";
 				addNotification(`Checkmate! ${winningColor} won! Press the restart button if you wish to play again`);
+				this.isRunning = false;
 			} else addNotification(`Check! ${this.turn.toLowerCase()} king is threatened`);
 		}
 	}
