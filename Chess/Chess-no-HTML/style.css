@@ -85,10 +85,10 @@ body {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 30%;
-	height: 30%;
+	width: 25%;
+	height: 25%;
 	border-radius: 50%;
-	background-color: rgba(255, 0, 200, 0.7);
+	background-color: rgba(255, 0, 200, 0.6);
 	border: 1px solid black;
 	transform: translate(-50%, -50%);
 }
@@ -150,4 +150,23 @@ body {
 	color: white;
 	transition: 0.3s;
 	cursor: pointer;
+}
+
+#notification-container {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 1;
+}
+
+.notification {
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid black;
+	color: black;
+	font-weight: bold;
+	width: 250px;
+	padding: 10px;
+	margin: 0 0 10px;
+	text-align: center;
 }

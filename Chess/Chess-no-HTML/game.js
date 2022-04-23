@@ -27,15 +27,15 @@ class Game {
 		this.board[oldY][oldX] = undefined;
 		if (movingPiece.type == "KING") movingPiece.move(newX, newY);
 		if (temp) this.killPiece(temp);
-		if (this.isCheck(this.turn.color)) {
+		if (this.isCheck(this.turn)) {
 			this.board[oldY][oldX] = movingPiece;
 			this.board[newY][newX] = temp;
 			if (temp) this.revivePiece(temp);
 			if (movingPiece.type == "KING") movingPiece.move(oldX, oldY);
-			alert("Since the point of the game is killing the enemy king I'm not going to let you do that to yourself");
+			addNotification("Since the point of the game is killing the enemy king I'm not going to let you do that to yourself");
 			return false;
 		} else {
-			if (temp) console.log(`${movingPiece.color} ${movingPiece.type} captured ${temp.color} ${temp.type}`);
+			if (temp) addNotification(`${movingPiece.color} ${movingPiece.type} captured ${temp.color} ${temp.type}`);
 			if (this.board[newY][newX].move(newX, newY)) upgradeWindow.style.visibility = "visible"; //show upgrade screen
 			else this.switchTurns();
 			return true;
@@ -44,13 +44,14 @@ class Game {
 
 	switchTurns() {
 		this.turn = this.turn == "WHITE" ? "BLACK" : "WHITE";
-		if (this.isCheck(this.turn.color)) {
-			if (this.isCheckMate(this.turn.color)) {
+		if (this.isCheck(this.turn)) {
+			if (this.isCheckMate(this.turn)) {
 				const winningColor = this.turn == "WHITE" ? "black" : "white";
-				alert(`Checkmate! ${winningColor} won!`);
-			} else alert(`Check! ${this.turn.toLowerCase()} king is threatened`);
+				addNotification(`Checkmate! ${winningColor} won! Press the restart button if you wish to play again`);
+			} else addNotification(`Check! ${this.turn.toLowerCase()} king is threatened`);
 		}
 	}
+
 	isCheck(color) {
 		if (color == "WHITE") {
 			for (const blackPiece of this.blackPieces) {

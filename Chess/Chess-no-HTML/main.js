@@ -1,9 +1,9 @@
 const GAME_SIZE = 8;
 const BOARD_SIZE = GAME_SIZE + 2;
 const CHESS_TYPES = ["PAWN", "ROOK", "KNIGHT", "BISHOP", "QUEEN", "KING", "BISHOP", "KNIGHT", "ROOK"];
-const WHITE_PIECES = ["♙", "♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
-const BLACK_PIECES = ["♟", "♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
-const WHITE_PIECES1 = [
+const WHITE_PIECES2 = ["♙", "♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
+const BLACK_PIECES2 = ["♟", "♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"];
+const WHITE_PIECES = [
 	'<i class="fa-regular fa-chess-pawn"></i>',
 	'<i class="fa-regular fa-chess-rook"></i>',
 	'<i class="fa-regular fa-chess-knight"></i>',
@@ -14,7 +14,7 @@ const WHITE_PIECES1 = [
 	'<i class="fa-regular fa-chess-knight"></i>',
 	'<i class="fa-regular fa-chess-rook"></i>',
 ];
-const BLACK_PIECES1 = [
+const BLACK_PIECES = [
 	'<i class="fa-solid fa-chess-pawn"></i>',
 	'<i class="fa-solid fa-chess-rook"></i>',
 	'<i class="fa-solid fa-chess-knight"></i>',
@@ -25,6 +25,7 @@ const BLACK_PIECES1 = [
 	'<i class="fa-solid fa-chess-knight"></i>',
 	'<i class="fa-solid fa-chess-rook"></i>',
 ];
+const notifications = document.getElementById("notification-container");
 let chosenCell = undefined;
 let desiredCell = undefined;
 let availableMoves = [];
@@ -157,14 +158,22 @@ function cellClicked(e, x, y) {
 	} else {
 		desiredCell = e.currentTarget;
 		let lastId = chosenCell.id.split("-");
-		let lastX = lastId[0];
-		let lastY = lastId[1];
+		let lastX = +lastId[0];
+		let lastY = +lastId[1];
 		if (game.movePiece(lastX, lastY, x, y)) {
 			updateBoard(e.currentTarget, chosenCell);
 			toggleBack();
 			chosenCell = undefined;
 		}
 	}
+}
+
+function addNotification(text) {
+	const notif = document.createElement("div");
+	notif.className = "notification";
+	notif.innerText = text;
+	notifications.appendChild(notif);
+	setTimeout(() => notif.remove(), 5000);
 }
 
 const table = createBoard();
