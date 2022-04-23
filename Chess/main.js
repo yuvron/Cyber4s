@@ -187,6 +187,7 @@ function initUtils() {
 	restart.addEventListener("click", () => {
 		game.initalizeGame(initializeBoard(table));
 		updateTurn();
+		addNotification("Game is restarting...");
 	});
 	//Setup upgrade button events
 	const upgradeOptions = [...upgradeWindow.getElementsByTagName("i")];
