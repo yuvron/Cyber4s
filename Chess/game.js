@@ -3,6 +3,7 @@ class Game {
 		this.initalizeGame(board);
 	}
 
+	//Setting all the game variables to starting values
 	initalizeGame(cleanBoard) {
 		this.board = cleanBoard;
 		this.whitePieces = [];
@@ -21,6 +22,8 @@ class Game {
 		return this.board[y][x];
 	}
 
+	//Moving a piece to a new position in the board
+	//Returning true if the move is legal
 	movePiece(oldX, oldY, newX, newY) {
 		const movingPiece = this.board[oldY][oldX];
 		const temp = this.board[newY][newX];
@@ -43,6 +46,7 @@ class Game {
 		}
 	}
 
+	//Switching turns, checking for possible check and checkmate
 	switchTurns() {
 		this.turn = this.turn === "WHITE" ? "BLACK" : "WHITE";
 		if (this.isCheck(this.turn)) {
@@ -54,6 +58,7 @@ class Game {
 		}
 	}
 
+	//Returing true if the color checked's king is under check
 	isCheck(color) {
 		if (color === "WHITE") {
 			for (const blackPiece of this.blackPieces) {
@@ -71,6 +76,7 @@ class Game {
 		return false;
 	}
 
+	//Returning true if the color checked has lost
 	isCheckMate(color) {
 		const condition = (piece, move) => {
 			const x = piece.x;
@@ -103,16 +109,19 @@ class Game {
 		return true;
 	}
 
+	//Removing a piece from the pieces array, meaning it was captured
 	killPiece(piece) {
 		if (piece.color === "WHITE") this.whitePieces.splice(this.whitePieces.indexOf(piece), 1);
 		else this.blackPieces.splice(this.blackPieces.indexOf(piece), 1);
 	}
 
+	//Returning a piece from the pieces array, meaning it wasn't actually captured
 	revivePiece(piece) {
 		if (piece.color === "WHITE") this.whitePieces.push(piece);
 		else this.blackPieces.push(piece);
 	}
 
+	//Upgrades a pawn to a better piece
 	upgradePiece(piece, upgradeTo) {
 		addNotification(`${piece.color} PAWN upgraded to ${upgradeTo}`);
 		piece.type = upgradeTo;

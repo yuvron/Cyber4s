@@ -66,6 +66,7 @@ function createBoard() {
 	return table;
 }
 
+//Placing all the pieces in place and creating the array of the board
 function initializeBoard(table) {
 	const board = [];
 	rows = [...table.rows];
@@ -98,12 +99,14 @@ function initializeBoard(table) {
 	return board;
 }
 
+//Moving a piece in the HTML board
 function updateBoard(newPos, lastPos) {
 	newPos.innerHTML = lastPos.innerHTML;
 	lastPos.innerHTML = "";
 	updateTurn();
 }
 
+//Updating the turn indicator
 function updateTurn() {
 	const turn = document.getElementById("turn");
 	if ((game.turn === "WHITE" && game.isRunning) || (game.turn === "BLACK" && !game.isRunning)) {
@@ -119,6 +122,7 @@ function updateTurn() {
 	}
 }
 
+//Handling click events on tiles in the board
 function cellClicked(e, x, y) {
 	if (game.isRunning) {
 		//A function that toggles all the highlighted cells back
@@ -144,7 +148,7 @@ function cellClicked(e, x, y) {
 							if (el) {
 								el.classList.toggle("move");
 								availableMoves.push(el);
-							} else console.log("NO ELEMENT");
+							}
 						}
 					}
 				} else chosenCell = undefined;
@@ -164,6 +168,7 @@ function cellClicked(e, x, y) {
 	}
 }
 
+//Pushing a toast notification on the screen and playing a sound, removing the notification after 5 seconds
 function addNotification(text) {
 	const notif = document.createElement("div");
 	notif.className = "notification";
@@ -178,6 +183,7 @@ function addNotification(text) {
 	setTimeout(() => notif.remove(), 5000);
 }
 
+//Setting up utility buttons (restart and upgrade menu)
 function initUtils() {
 	//Setup restart button events
 	const restart = document.getElementById("restart");
@@ -197,7 +203,7 @@ function initUtils() {
 			if (game.turn === "WHITE") desiredCell.innerHTML = WHITE_PIECES[CHESS_TYPES.indexOf(newType)];
 			else desiredCell.innerHTML = BLACK_PIECES[CHESS_TYPES.indexOf(newType)];
 			const cellId = desiredCell.id.split("-");
-			const piece = game.board[cellId[1]][cellId[0]];
+			const piece = game.getPiece(cellId[0], cellId[1]);
 			game.upgradePiece(piece, newType);
 			el.style.transition = "0s";
 			upgradeWindow.style.visibility = "hidden";
