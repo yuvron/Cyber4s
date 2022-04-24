@@ -92,6 +92,7 @@ class Piece {
 				if (board[j][i].color !== this.color) moves.push([i, j]);
 				return moves;
 			}
+			if (once) return moves;
 			i += xInc;
 			j += yInc;
 		}
