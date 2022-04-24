@@ -41,10 +41,10 @@ function createBoard() {
 	//loop to create 10 rows (8 for the game, 2 for the letters)
 	for (let i = BOARD_SIZE - 1; i >= 0; i--) {
 		const row = table.insertRow();
-		isSideRow = i == 0 || i == BOARD_SIZE - 1;
+		isSideRow = i === 0 || i === BOARD_SIZE - 1;
 		for (let j = 0; j < BOARD_SIZE; j++) {
 			const cell = row.insertCell();
-			isSideColumn = j == 0 || j == BOARD_SIZE - 1;
+			isSideColumn = j === 0 || j === BOARD_SIZE - 1;
 			if (isSideRow) {
 				cell.classList.add("letter");
 				if (isSideColumn) cell.classList.add("number");
@@ -57,7 +57,7 @@ function createBoard() {
 					cell.classList.add("tile");
 					cell.id = j - 1 + "-" + (i - 1);
 					cell.addEventListener("click", (event) => cellClicked(event, j - 1, i - 1));
-					if ((i + j) % 2 == 0) cell.classList.add("black");
+					if ((i + j) % 2 === 0) cell.classList.add("black");
 					else cell.classList.add("white");
 				}
 			}
@@ -77,16 +77,16 @@ function initializeBoard(table) {
 		cells.shift(); //Remove the first column (numbers)
 		cells.pop(); //Remove the last column (numbers)
 		for (const j in cells) {
-			if (i == 0) {
+			if (i === 0) {
 				cells[j].innerHTML = BLACK_PIECES[+j + 1];
 				board[i][j] = new Piece(CHESS_TYPES[+j + 1], "WHITE", +j, i);
-			} else if (i == 1) {
+			} else if (i === 1) {
 				cells[j].innerHTML = BLACK_PIECES[0];
 				board[i][j] = new Piece("PAWN", "WHITE", +j, i);
-			} else if (i == cells.length - 2) {
+			} else if (i === cells.length - 2) {
 				cells[j].innerHTML = WHITE_PIECES[0];
 				board[i][j] = new Piece("PAWN", "BLACK", +j, i);
-			} else if (i == cells.length - 1) {
+			} else if (i === cells.length - 1) {
 				cells[j].innerHTML = WHITE_PIECES[+j + 1];
 				board[i][j] = new Piece(CHESS_TYPES[+j + 1], "BLACK", +j, i);
 			} else {
@@ -106,7 +106,7 @@ function updateBoard(newPos, lastPos) {
 
 function updateTurn() {
 	const turn = document.getElementById("turn");
-	if ((game.turn == "WHITE" && game.isRunning) || (game.turn == "BLACK" && !game.isRunning)) {
+	if ((game.turn === "WHITE" && game.isRunning) || (game.turn === "BLACK" && !game.isRunning)) {
 		turn.className = "white-turn";
 		table.style.borderColor = "white";
 		if (game.isRunning) turn.innerText = "White Turn";
@@ -131,10 +131,10 @@ function cellClicked(e, x, y) {
 		if (!availableMoves.includes(e.currentTarget)) {
 			//Checking if there is a previous clicked cell, if so unmarking it
 			if (chosenCell) toggleBack();
-			if (chosenCell == e.currentTarget) chosenCell = undefined;
+			if (chosenCell === e.currentTarget) chosenCell = undefined;
 			else {
 				let piece = game.getPiece(x, y);
-				if (piece && piece.color == game.turn) {
+				if (piece && piece.color === game.turn) {
 					chosenCell = e.currentTarget;
 					chosenCell.classList.toggle("selected");
 					let moves = piece.getMoves(game.board);
@@ -194,7 +194,7 @@ function initUtils() {
 	upgradeOptions.forEach((el) => {
 		el.addEventListener("click", () => {
 			const newType = el.getAttribute("name");
-			if (game.turn == "WHITE") desiredCell.innerHTML = WHITE_PIECES[CHESS_TYPES.indexOf(newType)];
+			if (game.turn === "WHITE") desiredCell.innerHTML = WHITE_PIECES[CHESS_TYPES.indexOf(newType)];
 			else desiredCell.innerHTML = BLACK_PIECES[CHESS_TYPES.indexOf(newType)];
 			const cellId = desiredCell.id.split("-");
 			const piece = game.board[cellId[1]][cellId[0]];

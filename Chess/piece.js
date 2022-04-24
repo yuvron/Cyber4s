@@ -28,7 +28,7 @@ class Piece {
 
 	getPawnMoves(board) {
 		let pawnMoves = [];
-		let multiplier = this.color == "WHITE" ? 1 : -1;
+		let multiplier = this.color === "WHITE" ? 1 : -1;
 		let newY = this.y + 1 * multiplier;
 		//Regular moves
 		if (!board[newY][this.x]) {
@@ -39,9 +39,9 @@ class Piece {
 		//Capturing moves
 		newY = this.y + 1 * multiplier;
 		let newX = this.x + 1;
-		if (board[newY][newX] && board[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
+		if (board[newY][newX] && board[newY][newX].color !== this.color) pawnMoves.push([newX, newY]);
 		newX = this.x - 1;
-		if (board[newY][newX] && board[newY][newX].color != this.color) pawnMoves.push([newX, newY]);
+		if (board[newY][newX] && board[newY][newX].color !== this.color) pawnMoves.push([newX, newY]);
 		return pawnMoves;
 	}
 
@@ -49,7 +49,7 @@ class Piece {
 		let knightMoves = [];
 		let condition = (x, y) => {
 			if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-				if (!board[y][x] || board[y][x].color != this.color) knightMoves.push([x, y]);
+				if (!board[y][x] || board[y][x].color !== this.color) knightMoves.push([x, y]);
 			}
 		};
 		condition(this.x + 2, this.y + 1);
@@ -67,7 +67,7 @@ class Piece {
 		let straights = [];
 		const condition = (i, j) => {
 			if (!board[j][i]) straights.push([i, j]);
-			else if (board[j][i].color != this.color) {
+			else if (board[j][i].color !== this.color) {
 				straights.push([i, j]);
 				return true;
 			} else return true;
@@ -83,7 +83,7 @@ class Piece {
 		let diagonals = [];
 		let condition = (i, j) => {
 			if (!board[j][i]) diagonals.push([i, j]);
-			else if (board[j][i].color != this.color) {
+			else if (board[j][i].color !== this.color) {
 				diagonals.push([i, j]);
 				return true;
 			} else return true;
@@ -124,6 +124,6 @@ class Piece {
 		this.x = x;
 		this.y = y;
 		//If a pawn reaches the end it turns to a better piece
-		if (this.type == "PAWN" && (this.y == GAME_SIZE - 1 || this.y == 0)) return true;
+		if (this.type === "PAWN" && (this.y === GAME_SIZE - 1 || this.y === 0)) return true;
 	}
 }
