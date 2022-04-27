@@ -53,14 +53,14 @@ class Game {
 		if (this.isCheck(this.turn)) {
 			if (this.isCheckMate(this.turn)) {
 				const winningColor = this.turn === "WHITE" ? "black" : "white";
-				addNotification(`Checkmate! ${winningColor.toLowerCase()} won! Press the restart button if you wish to play again`);
+				addNotification(`Checkmate! ${winningColor} won! Press the restart button if you wish to play again`);
 				this.isRunning = false;
 			} else addNotification(`Check! ${this.turn.toLowerCase()} king is threatened`);
-		} else {
+		} else if (this.isCheckMate(this.turn)) {
 			//if a player is not under check but can't move it's a stalemate
-			if (this.isCheckMate(this.turn)) {
-				addNotification(`Stalemate! ${this.turn.toLowerCase()} can't make any moves`);
-			}
+			addNotification(`Stalemate! ${this.turn.toLowerCase()} can't make any moves`);
+			this.isRunning = false;
+			this.turn = "";
 		}
 	}
 

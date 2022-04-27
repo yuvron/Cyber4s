@@ -110,7 +110,8 @@ function updateBoard(newPos, lastPos) {
 //Updating the turn indicator
 function updateTurn() {
 	const turn = document.getElementById("turn");
-	if ((game.turn === "WHITE" && game.isRunning) || (game.turn === "BLACK" && !game.isRunning)) {
+	if (game.turn === "") turn.innerHTML = "Stalemate!";
+	else if ((game.turn === "WHITE" && game.isRunning) || (game.turn === "BLACK" && !game.isRunning)) {
 		turn.className = "white-turn";
 		table.style.borderColor = "white";
 		if (game.isRunning) turn.innerText = "White Turn";
@@ -226,7 +227,6 @@ function initUtils() {
 			const cellId = desiredCell.id.split("-");
 			const piece = game.getPiece(cellId[0], cellId[1]);
 			game.upgradePiece(piece, newType);
-			el.style.transition = "0s";
 			upgradeWindow.style.visibility = "hidden";
 			game.switchTurns();
 			if (!game.isRunning) updateTurn();
