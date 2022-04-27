@@ -39,15 +39,11 @@ class Game {
 			addNotification("Your king is either threatened or will be so after the desired move, you can't do that");
 			return false;
 		} else {
-			if (temp)
-				addNotification(
-					`${movingPiece.color.charAt(0)}${movingPiece.color
-						.slice(1)
-						.toLowerCase()} ${movingPiece.type.toLowerCase()} captured ${temp.color.toLowerCase()} ${temp.type.toLowerCase()}`
-				);
+			if (temp) addNotification(`${movingPiece.color.charAt(0) + movingPiece.color.slice(1).toLowerCase()} ${movingPiece.type.toLowerCase()} captured ${temp.color.toLowerCase()} ${temp.type.toLowerCase()}`);
 			if (this.board[newY][newX].move(newX, newY)) upgradeWindow.style.visibility = "visible"; //show upgrade screen
 			else this.switchTurns();
-			return true;
+			//if a piece was captured, return it
+			return temp ? temp : true;
 		}
 	}
 
@@ -57,61 +53,50 @@ class Game {
 		if (this.isCheck(this.turn)) {
 			if (this.isCheckMate(this.turn)) {
 				const winningColor = this.turn === "WHITE" ? "black" : "white";
-				addNotification(`Checkmate! ${winningColor} won! Press the restart button if you wish to play again`);
+				addNotification(`Checkmate! ${winningColor.toLowerCase()} won! Press the restart button if you wish to play again`);
 				this.isRunning = false;
 			} else addNotification(`Check! ${this.turn.toLowerCase()} king is threatened`);
 		}
 	}
 
-	//Returing true if the color checked's king is under check
-	isCheck(color) {
-		if (color === "WHITE") {
-			for (const blackPiece of this.blackPieces) {
-				for (const move of blackPiece.getMoves(this.board)) {
-					if (move[0] === this.whiteKing.x && move[1] === this.whiteKing.y) return true;
-				}
-			}
-		} else {
-			for (const whitePiece of this.whitePieces) {
-				for (const move of whitePiece.getMoves(this.board)) {
-					if (move[0] === this.blackKing.x && move[1] === this.blackKing.y) return true;
-				}
+	//Returing true if the player's king is under check
+	isCheck(player) {
+		const opponentPieces = player === "WHITE" ? this.blackPieces : this.whitePieces;
+		const playerKing = player === "WHITE" ? this.whiteKing : this.blackKing;
+		for (const piece of opponentPieces) {
+			for (const move of piece.getMoves(this.board)) {
+				if (move[0] === playerKing.x && move[1] === playerKing.y) return true;
 			}
 		}
 		return false;
 	}
 
-	//Returning true if the color checked has lost
-	isCheckMate(color) {
-		const condition = (piece, move) => {
-			const x = piece.x;
-			const y = piece.y;
-			const temp = this.board[move[1]][move[0]];
-			piece.move(move[0], move[1], false);
-			this.board[move[1]][move[0]] = piece;
-			this.board[y][x] = undefined;
-			if (temp) this.killPiece(temp);
-			const isCheck = this.isCheck(color);
-			piece.move(x, y, false);
-			this.board[move[1]][move[0]] = temp;
-			this.board[y][x] = piece;
-			if (temp) this.revivePiece(temp);
-			return isCheck;
-		};
-		if (color === "WHITE") {
-			for (const whitePiece of this.whitePieces) {
-				for (const move of whitePiece.getMoves(this.board)) {
-					if (!condition(whitePiece, move)) return false;
-				}
-			}
-		} else {
-			for (const blackPiece of this.blackPieces) {
-				for (const move of blackPiece.getMoves(this.board)) {
-					if (!condition(blackPiece, move)) return false;
-				}
+	//Returning true if the player has lost
+	isCheckMate(player) {
+		const playerPieces = player === "WHITE" ? this.whitePieces : this.blackPieces;
+		for (const piece of playerPieces) {
+			for (const move of piece.getMoves(this.board)) {
+				const x = piece.x;
+				const y = piece.y;
+				const temp = this.board[move[1]][move[0]];
+				piece.move(move[0], move[1], false);
+				this.board[move[1]][move[0]] = piece;
+				this.board[y][x] = undefined;
+				if (temp) this.killPiece(temp);
+				const isCheck = this.isCheck(player);
+				piece.move(x, y, false);
+				this.board[move[1]][move[0]] = temp;
+				this.board[y][x] = piece;
+				if (temp) this.revivePiece(temp);
+				if (!isCheck) return false;
 			}
 		}
 		return true;
+	}
+
+	//Returning true if game has reach stalemate
+	isStalemate(player) {
+		const playerPieces = player === "WHITE" ? this.whitePieces : this.blackPieces;
 	}
 
 	//Removing a piece from the pieces array, meaning it was captured
@@ -128,7 +113,7 @@ class Game {
 
 	//Upgrades a pawn to a better piece
 	upgradePiece(piece, upgradeTo) {
-		addNotification(`${piece.color} PAWN upgraded to ${upgradeTo}`);
+		addNotification(`${piece.color.charAt(0) + piece.color.slice(1).toLowerCase()} pawn upgraded to ${upgradeTo.toLowerCase()}`);
 		piece.type = upgradeTo;
 	}
 }

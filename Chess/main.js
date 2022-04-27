@@ -33,9 +33,10 @@ let availableMoves = [];
 
 //Creates a table element (the board) and appending it all the rows and cells of the table
 function createBoard() {
+	const container = document.getElementById("container");
 	const table = document.createElement("table");
 	table.id = "board";
-	document.body.appendChild(table);
+	container.appendChild(table);
 	let isSideRow = false; //Side rows contain only letters and are not part of the game
 	let isSideColumn = false; //Side columns contain only numbers and are not part of the game
 	//loop to create 10 rows (8 for the game, 2 for the letters)
@@ -122,6 +123,15 @@ function updateTurn() {
 	}
 }
 
+//Adds a piece to the opponent player's captures list
+function addPieceToCaptures(piece, cell) {
+	const oppColor = piece.color === "WHITE" ? "black" : "white";
+	const div = document.getElementById(`${oppColor}-cap`);
+	const newCapture = document.createElement("span");
+	newCapture.innerHTML = cell.innerHTML;
+	div.appendChild(newCapture);
+}
+
 //Handling click events on tiles in the board
 function cellClicked(e, x, y) {
 	if (game.isRunning) {
@@ -159,7 +169,9 @@ function cellClicked(e, x, y) {
 			let lastId = chosenCell.id.split("-");
 			let lastX = +lastId[0];
 			let lastY = +lastId[1];
-			if (game.movePiece(lastX, lastY, x, y)) {
+			const tryMove = game.movePiece(lastX, lastY, x, y);
+			if (tryMove) {
+				if (typeof tryMove === "object") addPieceToCaptures(tryMove, desiredCell);
 				updateBoard(e.currentTarget, chosenCell);
 				toggleBack();
 				chosenCell = undefined;
