@@ -39,7 +39,12 @@ class Game {
 			addNotification("Your king is either threatened or will be so after the desired move, you can't do that");
 			return false;
 		} else {
-			if (temp) addNotification(`${movingPiece.color} ${movingPiece.type} captured ${temp.color} ${temp.type}`);
+			if (temp)
+				addNotification(
+					`${movingPiece.color.charAt(0)}${movingPiece.color
+						.slice(1)
+						.toLowerCase()} ${movingPiece.type.toLowerCase()} captured ${temp.color.toLowerCase()} ${temp.type.toLowerCase()}`
+				);
 			if (this.board[newY][newX].move(newX, newY)) upgradeWindow.style.visibility = "visible"; //show upgrade screen
 			else this.switchTurns();
 			return true;
