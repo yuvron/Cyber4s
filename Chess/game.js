@@ -56,6 +56,11 @@ class Game {
 				addNotification(`Checkmate! ${winningColor.toLowerCase()} won! Press the restart button if you wish to play again`);
 				this.isRunning = false;
 			} else addNotification(`Check! ${this.turn.toLowerCase()} king is threatened`);
+		} else {
+			//if a player is not under check but can't move it's a stalemate
+			if (this.isCheckMate(this.turn)) {
+				addNotification(`Stalemate! ${this.turn.toLowerCase()} can't make any moves`);
+			}
 		}
 	}
 
@@ -92,11 +97,6 @@ class Game {
 			}
 		}
 		return true;
-	}
-
-	//Returning true if game has reach stalemate
-	isStalemate(player) {
-		const playerPieces = player === "WHITE" ? this.whitePieces : this.blackPieces;
 	}
 
 	//Removing a piece from the pieces array, meaning it was captured

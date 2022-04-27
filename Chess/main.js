@@ -132,6 +132,13 @@ function addPieceToCaptures(piece, cell) {
 	div.appendChild(newCapture);
 }
 
+function clearCaptures() {
+	const white = document.getElementById("white-cap");
+	const black = document.getElementById("black-cap");
+	white.innerHTML = "";
+	black.innerHTML = "";
+}
+
 //Handling click events on tiles in the board
 function cellClicked(e, x, y) {
 	if (game.isRunning) {
@@ -206,6 +213,7 @@ function initUtils() {
 	restart.addEventListener("click", () => {
 		game.initalizeGame(initializeBoard(table));
 		updateTurn();
+		clearCaptures();
 		addNotification("Game is restarting...");
 	});
 	//Setup upgrade button events
