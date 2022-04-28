@@ -27,8 +27,8 @@ class Piece {
 	}
 
 	getPawnMoves(board) {
-		let pawnMoves = [];
-		let multiplier = this.color === "WHITE" ? 1 : -1;
+		const pawnMoves = [];
+		const multiplier = this.color === "WHITE" ? 1 : -1;
 		let newY = this.y + 1 * multiplier;
 		//Regular moves
 		if (!board[newY][this.x]) {
@@ -47,19 +47,19 @@ class Piece {
 
 	getKnightMoves(board) {
 		let knightMoves = [];
-		let condition = (x, y) => {
+		let filter = (x, y) => {
 			if (x >= 0 && x < 8 && y >= 0 && y < 8) {
 				if (!board[y][x] || board[y][x].color !== this.color) knightMoves.push([x, y]);
 			}
 		};
-		condition(this.x + 2, this.y + 1);
-		condition(this.x + 2, this.y - 1);
-		condition(this.x - 2, this.y + 1);
-		condition(this.x - 2, this.y - 1);
-		condition(this.x + 1, this.y + 2);
-		condition(this.x + 1, this.y - 2);
-		condition(this.x - 1, this.y + 2);
-		condition(this.x - 1, this.y - 2);
+		filter(this.x + 2, this.y + 1);
+		filter(this.x + 2, this.y - 1);
+		filter(this.x - 2, this.y + 1);
+		filter(this.x - 2, this.y - 1);
+		filter(this.x + 1, this.y + 2);
+		filter(this.x + 1, this.y - 2);
+		filter(this.x - 1, this.y + 2);
+		filter(this.x - 1, this.y - 2);
 		return knightMoves;
 	}
 
